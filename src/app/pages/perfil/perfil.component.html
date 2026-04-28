@@ -1,0 +1,41 @@
+<div class="perfil-page">
+  <div class="perfil-container">
+
+    <div class="logo-block">
+      <span class="logo-caixa">CAIXA</span>
+      <span class="logo-sub">task manager corporativo</span>
+    </div>
+
+    <div class="perfil-card">
+      <div class="card-header">
+        <h2>Criar seu perfil</h2>
+        <p>Preencha seus dados para acessar o sistema</p>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="salvar()">
+
+        <div class="field">
+          <label>Nome completo *</label>
+          <input formControlName="nome" placeholder="Seu nome completo" [class.input-erro]="invalido('nome')" />
+          <small class="erro" *ngIf="invalido('nome')">Nome obrigatório (mínimo 3 caracteres)</small>
+        </div>
+
+        <div class="field">
+          <label>Cargo *</label>
+          <input formControlName="cargo" placeholder="Ex: Analista de TI" [class.input-erro]="invalido('cargo')" />
+          <small class="erro" *ngIf="invalido('cargo')">Cargo obrigatório</small>
+        </div>
+
+        <div class="field">
+          <label>Matrícula *</label>
+          <input formControlName="matricula" placeholder="Ex: 12345678" [class.input-erro]="invalido('matricula')" />
+          <small class="erro" *ngIf="invalido('matricula')">Matrícula obrigatória (mínimo 4 caracteres)</small>
+        </div>
+
+        <button type="submit" class="btn-primary">Acessar o sistema →</button>
+
+      </form>
+    </div>
+
+  </div>
+</div>

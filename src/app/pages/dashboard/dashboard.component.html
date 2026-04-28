@@ -1,0 +1,312 @@
+<!-- HEADER -->
+<header class="app-header">
+  <div class="header-left">
+    <div class="logo-block">
+      <span class="logo-caixa">CAIXA</span>
+      <span class="logo-sub">task manager corporativo</span>
+    </div>
+    <span class="header-tag">#INTERNO.TODOS</span>
+  </div>
+  <div style="display:flex;gap:0.5rem;align-items:center;">
+    <button class="btn-tema" (click)="alternarFonte()">🔤</button>
+    <button class="btn-tema" (click)="alternarTema()">🌙</button>
+    <button class="btn-sair" (click)="sair()">Sair</button>
+  </div>
+</header>
+
+<!-- TOAST -->
+<div class="toast" *ngIf="toastMsg()" [class.toast-sucesso]="toastMsg()?.tipo === 'sucesso'" [class.toast-erro]="toastMsg()?.tipo === 'erro'">
+  {{ toastMsg()?.texto }}
+</div>
+
+<!-- DIALOG EDIÇÃO -->
+<div class="dialog-overlay" *ngIf="dialogAberto()" (click)="fecharDialog()">
+  <div class="dialog" (click)="$event.stopPropagation()">
+    <div class="dialog-header">
+      <h3>Editar tarefa</h3>
+      <button class="btn-fechar" (click)="fecharDialog()">✕</button>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="salvarTarefa()">
+      <div class="form-grid">
+        <div class="field span2">
+          <label>Título *</label>
+          <input formControlName="titulo" [class.input-erro]="invalido('titulo')" />
+          <small class="erro" *ngIf="invalido('titulo')">Obrigatório</small>
+        </div>
+        <div class="field span2">
+          <label>Descrição *</label>
+          <textarea formControlName="descricao" rows="2" [class.input-erro]="invalido('descricao')"></textarea>
+        </div>
+        <div class="field">
+          <label>Data de vencimento *</label>
+          <input type="date" formControlName="dataVencimento" />
+        </div>
+        <div class="field">
+          <label>Categoria</label>
+          <select formControlName="categoria">
+            <option *ngFor="let o of categoriaOpcoes" [value]="o.value">{{ o.label }}</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Status</label>
+          <select formControlName="status">
+            <option *ngFor="let o of statusOpcoes" [value]="o.value">{{ o.label }}</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Prioridade</label>
+          <select formControlName="prioridade">
+            <option *ngFor="let o of prioridadeOpcoes" [value]="o.value">{{ o.label }}</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Anotação</label>
+          <input formControlName="anotacao" />
+        </div>
+        <div class="field">
+          <label>Horário</label>
+          <select formControlName="horario">
+            <option value="">Selecionar horário</option>
+            <option *ngFor="let h of horariosOpcoes" [value]="h">{{ h }}</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Destinado (matrícula)</label>
+          <input formControlName="destinado" />
+        </div>
+      </div>
+      <div class="dialog-footer">
+        <button type="button" class="btn-danger" (click)="confirmarExclusao(tarefaEditando()!); fecharDialog()">Excluir</button>
+        <button type="button" class="btn-secondary" (click)="fecharDialog()">Cancelar</button>
+        <button type="submit" style="padding:0.6rem 1.4rem;background:#003882;color:white;border:none;border-radius:6px;font-size:0.9rem;font-weight:600;cursor:pointer;">Salvar alterações</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="dashboard-body">
+
+  <!-- PERFIL -->
+  <section class="card">
+    <h3 class="section-title">Perfil</h3>
+    <div class="perfil-row">
+      <div class="perfil-info">
+        <div class="avatar">👤</div>
+        <div class="perfil-dados">
+          <strong>{{ perfilService.perfil()?.nome }}</strong>
+          <span>{{ perfilService.perfil()?.cargo }}</span>
+          <small>Matrícula: {{ perfilService.perfil()?.matricula }}</small>
+        </div>
+      </div>
+      <div class="toggle-group">
+        <button class="toggle-btn" [class.active]="modoPerfil() === 'meu'" (click)="modoPerfil.set('meu')">Meu perfil</button>
+        <button class="toggle-btn" [class.active]="modoPerfil() === 'equipe'" (click)="modoPerfil.set('equipe')">Equipe</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARDS HORIZONTAIS -->
+  <section class="card">
+    <div class="section-header">
+      <h3 class="section-title">Lista de tarefas <button class="btn-novo" (click)="abrirNovaTarefa()">+</button></h3>
+      <div class="filtros-row">
+        <input class="input-busca" placeholder="🔍 Buscar por título..." (input)="setBusca($any($event.target).value)" />
+        <select class="select-filtro" (change)="setStatus($any($event.target).value)">
+          <option value="todos">Todos os status</option>
+          <option *ngFor="let o of statusOpcoes" [value]="o.value">{{ o.label }}</option>
+        </select>
+        <select class="select-filtro" (change)="setCategoria($any($event.target).value)">
+          <option value="todos">Todas as categorias</option>
+          <option *ngFor="let o of categoriaOpcoes" [value]="o.value">{{ o.label }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="cards-scroll" *ngIf="!tarefaService.carregando(); else loading">
+      <div class="empty-state" *ngIf="tarefasFiltradas().length === 0">
+        <span>📭</span><p>Nenhuma tarefa encontrada</p>
+      </div>
+      <div class="tarefa-card" *ngFor="let t of tarefasFiltradas()"
+  [class.selecionado]="tarefaSelecionada()?.id === t.id"
+  (click)="editarTarefa(t)">
+  <div class="card-top">
+    <strong>{{ t.titulo }}</strong>
+    <span class="tag" [class]="statusClasse(t.status)">{{ statusLabel(t.status) }}</span>
+  </div>
+  <small class="card-data">{{ t.dataVencimento }} · {{ categoriaLabel(t.categoria) }}</small>
+</div>
+    </div>
+    <ng-template #loading><div class="loading">Carregando...</div></ng-template>
+  </section>
+
+  
+
+  <!-- CALENDÁRIO -->
+  <section class="card">
+    <div class="calendario-topo">
+      <h3 class="section-title" style="margin:0">Calendário <button class="btn-novo" (click)="abrirNovaTarefa()">+</button></h3>
+      <h4 class="dia-label" style="margin:0">hoje</h4>
+      <h4 class="dia-label" style="margin:0">{{ labelSegundoPainel() }}</h4>
+    </div>
+    <div class="calendario-wrap">
+      <div class="calendario">
+        <div class="cal-header">
+          <button class="btn-cal" (click)="mesAnterior()">‹</button>
+          <span><strong>{{ nomeMes() }}</strong> {{ mesAtual().getFullYear() }}</span>
+          <button class="btn-cal" (click)="proximoMes()">›</button>
+        </div>
+        <div class="cal-grid">
+          <div class="cal-dia-semana" *ngFor="let d of ['dom','seg','ter','qua','qui','sex','sáb']">{{ d }}</div>
+          <div class="cal-dia" *ngFor="let dia of diasDoMes()"
+            [class.vazio]="dia === null"
+            [class.tem-tarefa]="temTarefaNoDia(dia)"
+            [class.selecionado]="dataSelecionada() && dia !== null && isDiaSelecionado(dia)"
+            (click)="selecionarDia(dia)">
+            <span *ngIf="dia !== null">{{ dia }}</span>
+            <span class="bolinha" *ngIf="temTarefaNoDia(dia)"></span>
+          </div>
+        </div>
+      </div>
+      <div class="tarefas-dia-wrap">
+        <div class="tarefas-coluna">
+          <div *ngIf="tarefasHoje().length === 0" class="empty-dia">Nenhuma tarefa</div>
+          <div class="dia-card" *ngFor="let t of tarefasHoje()" (click)="editarTarefa(t)" style="cursor:pointer;">
+  <span class="tag" [class]="statusClasse(t.status)">{{ statusLabel(t.status) }}</span>
+  <strong>{{ t.titulo }}</strong>
+  <small>{{ t.dataVencimento }} · {{ categoriaLabel(t.categoria) }}</small>
+</div>
+        </div>
+        <div class="tarefas-coluna">
+          <div *ngIf="tarefasSegundoPainel().length === 0" class="empty-dia">Nenhuma tarefa</div>
+          <div class="dia-card" *ngFor="let t of tarefasSegundoPainel()" (click)="editarTarefa(t)" style="cursor:pointer;">
+  <span class="tag" [class]="statusClasse(t.status)">{{ statusLabel(t.status) }}</span>
+  <strong>{{ t.titulo }}</strong>
+  <small>{{ t.dataVencimento }} · {{ categoriaLabel(t.categoria) }}</small>
+</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LISTA VERTICAL -->
+  <section class="card">
+    <div class="section-header">
+      <h3 class="section-title">Lista de tarefas</h3>
+      <div class="filtros-tabela">
+        <input class="input-busca" placeholder="🔍 Buscar..." (input)="setBusca($any($event.target).value)" style="width:160px" />
+        <select class="select-filtro" (change)="setFiltroVencimento($any($event.target).value)">
+          <option value="todos">Todo vencimento</option>
+          <option value="atrasado">Atrasado</option>
+          <option value="hoje">Hoje</option>
+          <option value="semana">Esta semana</option>
+          <option value="mes">Este mês</option>
+        </select>
+        <select class="select-filtro" (change)="setFiltroPrioridade($any($event.target).value)">
+          <option value="todos">Toda prioridade</option>
+          <option *ngFor="let o of prioridadeOpcoes" [value]="o.value">{{ o.label }}</option>
+        </select>
+        <select class="select-filtro" (change)="setStatus($any($event.target).value)">
+          <option value="todos">Todos os status</option>
+          <option *ngFor="let o of statusOpcoes" [value]="o.value">{{ o.label }}</option>
+        </select>
+        <div class="export-btns">
+          <button class="btn-export" (click)="exportarCsv()">⬇ CSV</button>
+          <button class="btn-export btn-excel" (click)="exportarExcel()">⬇ Excel</button>
+          <button class="btn-export btn-pdf" (click)="exportarPdf()">⬇ PDF</button>
+        </div>
+      </div>
+    </div>
+    <div class="tabela-wrap">
+      <table class="tabela">
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Descrição</th>
+            <th>Vencimento</th>
+            <th>Prioridade</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+  <tr *ngFor="let t of tarefasTabela()"
+    [class.linha-selecionada]="tarefaSelecionada()?.id === t.id"
+    (click)="tarefaSelecionada.set(t)">
+    <td><strong>{{ t.titulo }}</strong></td>
+    <td>{{ t.descricao }}</td>
+    <td>{{ t.dataVencimento }}</td>
+    <td><span class="tag" [class]="prioridadeClasse(t.prioridade)">{{ t.prioridade }}</span></td>
+    <td><span class="tag" [class]="statusClasse(t.status)">{{ statusLabel(t.status) }}</span></td>
+    <td class="acoes">
+      <button class="btn-icon" (click)="editarTarefa(t); $event.stopPropagation()">✏️</button>
+    </td>
+  </tr>
+  <tr *ngIf="tarefasTabela().length === 0">
+    <td colspan="6" style="text-align:center;padding:2rem;color:#aaa">Nenhuma tarefa encontrada</td>
+  </tr>
+</tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- CADASTRAR TAREFA -->
+  <section class="card">
+    <h3 class="section-title">Cadastrar tarefas</h3>
+    <form [formGroup]="form" (ngSubmit)="salvarTarefa()">
+      <div class="form-grid-compacto">
+        <div class="field">
+          <label>Título *</label>
+          <input formControlName="titulo" placeholder="Título da tarefa" [class.input-erro]="invalido('titulo')" />
+          <small class="erro" *ngIf="invalido('titulo')">Título obrigatório (mín. 3 caracteres)</small>
+        </div>
+        <div class="field">
+          <label>Data de vencimento *</label>
+          <input type="date" formControlName="dataVencimento" [class.input-erro]="invalido('dataVencimento')" />
+          <small class="erro" *ngIf="invalido('dataVencimento')">Data obrigatória</small>
+        </div>
+        <div class="field">
+          <label>Horário</label>
+          <select formControlName="horario">
+            <option value="">Selecionar horário</option>
+            <option *ngFor="let h of horariosOpcoes" [value]="h">{{ h }}</option>
+          </select>
+        </div>
+        <div class="field field-quatro">
+          <label>Categoria *</label>
+          <select formControlName="categoria">
+            <option *ngFor="let o of categoriaOpcoes" [value]="o.value">{{ o.label }}</option>
+          </select>
+        </div>
+        <div class="field field-quatro">
+          <label>Status *</label>
+          <select formControlName="status">
+            <option *ngFor="let o of statusOpcoes" [value]="o.value">{{ o.label }}</option>
+          </select>
+        </div>
+        <div class="field field-quatro">
+          <label>Prioridade *</label>
+          <select formControlName="prioridade">
+            <option *ngFor="let o of prioridadeOpcoes" [value]="o.value">{{ o.label }}</option>
+          </select>
+        </div>
+        <div class="field field-quatro">
+          <label>Destinado (matrícula)</label>
+          <input formControlName="destinado" placeholder="Matrícula do responsável" />
+        </div>
+        <div class="field span3">
+          <label>Descrição *</label>
+          <input formControlName="descricao" placeholder="Descreva a tarefa..." [class.input-erro]="invalido('descricao')" />
+          <small class="erro" *ngIf="invalido('descricao')">Descrição obrigatória</small>
+        </div>
+        <div class="field span3">
+          <label>Anotação</label>
+          <input formControlName="anotacao" placeholder="Observação..." />
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="form.reset()">Cancelar</button>
+        <button type="submit" style="padding:0.6rem 1.4rem;background:#003882;color:white;border:none;border-radius:6px;font-size:0.9rem;font-weight:600;cursor:pointer;">Salvar</button>
+      </div>
+    </form>
+  </section>
+
+</div>

@@ -1,0 +1,216 @@
+:root {
+  --azul: #003882;
+  --azul-medio: #005CA9;
+  --azul-claro: #0070CC;
+  --laranja: #F47920;
+  --cinza-bg: #f4f6f9;
+  --borda: #dde3ec;
+  --texto: #1a2340;
+}
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 14px;
+  background: #f4f6f9;
+  color: #1a2340;
+}
+
+input:focus, textarea:focus, select:focus { outline: none; }
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #c0c8d8; border-radius: 3px; }
+
+/* ================================
+   DARK MODE — substitua o bloco anterior
+   ================================ */
+body.dark-mode {
+  background: #111827;
+  color: #D0D8F0;
+}
+body.dark-mode .dashboard-body {
+  background: #111827;
+}
+body.dark-mode .card {
+  background: #1E2433;
+  border: 0.5px solid rgba(255,255,255,0.07);
+  box-shadow: none;
+  color: #D0D8F0;
+}
+
+/* Títulos de seção */
+body.dark-mode .section-title,
+body.dark-mode .dia-label {
+  color: #4FA3E0;
+}
+
+/* Perfil */
+body.dark-mode .perfil-dados strong { color: #D0D8F0; }
+body.dark-mode .perfil-dados span   { color: #8B9AB8; }
+body.dark-mode .perfil-dados small  { color: #6B7A99; }
+
+/* Toggle Meu perfil / Equipe */
+body.dark-mode .toggle-group {
+  border-color: rgba(255,255,255,0.1);
+}
+body.dark-mode .toggle-btn {
+  background: #1E2433;
+  color: #8B9AB8;
+  border: none;
+}
+body.dark-mode .toggle-btn.active {
+  background: #0070CC;
+  color: white;
+}
+
+/* Filtros e inputs */
+body.dark-mode .input-busca,
+body.dark-mode .select-filtro,
+body.dark-mode .field input,
+body.dark-mode .field textarea,
+body.dark-mode .field select {
+  background: #1E2433;
+  border-color: rgba(255,255,255,0.1);
+  color: #D0D8F0;
+}
+body.dark-mode .field label { color: #8B9AB8; }
+
+/* Cards de tarefa (scroll horizontal) */
+body.dark-mode .tarefa-card {
+  background: #252D3F;
+  border-color: rgba(255,255,255,0.06);
+  color: #D0D8F0;
+}
+body.dark-mode .tarefa-card:hover,
+body.dark-mode .tarefa-card.selecionado {
+  border-color: #4FA3E0;
+  box-shadow: 0 3px 12px rgba(79,163,224,0.12);
+}
+body.dark-mode .card-top strong { color: #D0D8F0; }
+body.dark-mode .card-data       { color: #6B7A99; }
+
+/* Tags de status */
+body.dark-mode .tag-warn    { background: #2D1E0A; color: #F5A623; }
+body.dark-mode .tag-success { background: #0A2215; color: #34C47C; }
+body.dark-mode .tag-info    { background: #0A1A2D; color: #4FA3E0; }
+body.dark-mode .tag-danger  { background: #2D1010; color: #E07070; }
+
+/* Calendário */
+body.dark-mode .btn-cal {
+  background: #1E2433;
+  border-color: rgba(255,255,255,0.08);
+  color: #8B9AB8;
+}
+body.dark-mode .cal-dia-semana { color: #6B7A99; }
+body.dark-mode .cal-dia        { color: #8B9AB8; }
+body.dark-mode .cal-dia:hover  { background: #252D3F; }
+body.dark-mode .cal-dia.tem-tarefa { color: #4FA3E0; }
+body.dark-mode .cal-dia.selecionado { background: #0070CC; color: white; }
+body.dark-mode .tarefas-dia h4  { color: #4FA3E0; }
+body.dark-mode .empty-dia       { color: #6B7A99; }
+
+/* Cards do dia (hoje/amanhã) */
+body.dark-mode .dia-card,
+body.dark-mode .dia-item {
+  background: #252D3F;
+  border-color: rgba(255,255,255,0.06);
+}
+body.dark-mode .dia-card strong,
+body.dark-mode .dia-item strong { color: #D0D8F0; }
+body.dark-mode .dia-card small,
+body.dark-mode .dia-item small  { color: #6B7A99; }
+
+/* Tabela */
+body.dark-mode .tabela th {
+  background: #1E2433;
+  color: #6B7A99;
+  border-bottom-color: rgba(255,255,255,0.07);
+}
+body.dark-mode .tabela td {
+  color: #C5CCE0;
+  border-bottom-color: rgba(255,255,255,0.05);
+}
+body.dark-mode .tabela tr:hover      { background: #252D3F; }
+body.dark-mode .linha-selecionada    { background: #1A2A4A !important; }
+
+/* Botões de export */
+body.dark-mode .btn-export {
+  background: #1E2433;
+  border-color: rgba(255,255,255,0.08);
+  color: #8B9AB8;
+}
+body.dark-mode .btn-export:hover { background: #252D3F; }
+body.dark-mode .btn-excel { color: #34C47C; border-color: rgba(52,196,124,0.3); }
+body.dark-mode .btn-pdf   { color: #E07070; border-color: rgba(224,112,112,0.3); }
+
+/* Dialog */
+body.dark-mode .dialog {
+  background: #1E2433;
+  color: #D0D8F0;
+}
+body.dark-mode .dialog-header h3 { color: #4FA3E0; }
+body.dark-mode .btn-fechar        { color: #6B7A99; }
+body.dark-mode .btn-secondary {
+  background: #252D3F;
+  color: #8B9AB8;
+  border-color: rgba(255,255,255,0.08);
+}
+
+/* Scrollbar */
+body.dark-mode ::-webkit-scrollbar-track { background: #1E2433; }
+body.dark-mode ::-webkit-scrollbar-thumb { background: #3A4560; }
+body.dark-mode .tarefa-card .card-top strong,
+body.dark-mode .tarefa-card p,
+body.dark-mode .tarefa-card span:not(.tag):not(.tag-warn):not(.tag-success):not(.tag-info):not(.tag-danger) {
+  color: #D0D8F0 !important;
+}
+body.dark-mode .card-data {
+  color: #6B7A99 !important;
+}
+/* Título dentro do card do calendário (hoje/amanhã) */
+body.dark-mode .dia-card strong,
+body.dark-mode .dia-card p,
+body.dark-mode .dia-card span:not(.tag):not(.tag-warn):not(.tag-success):not(.tag-info):not(.tag-danger) {
+  color: #D0D8F0 !important;
+}
+
+/* Dias do calendário com mais contraste */
+body.dark-mode .cal-dia {
+  color: #C5CCE0 !important;
+}
+body.dark-mode .cal-dia.vazio {
+  color: transparent !important;
+}
+body.dark-mode .cal-dia-semana {
+  color: #6B7A99 !important;
+}
+body.dark-mode .cal-dia.tem-tarefa {
+  color: #4FA3E0 !important;
+  font-weight: 700;
+}
+body.dark-mode .cal-dia.selecionado {
+  background: #0070CC !important;
+  color: white !important;
+}
+
+/* Mês/ano no header do calendário */
+body.dark-mode .cal-header,
+body.dark-mode .cal-header span,
+body.dark-mode .cal-header strong {
+  color: #D0D8F0 !important;
+}
+/* Dias do calendário mais visíveis */
+body.dark-mode .cal-dia {
+  color: #D0D8F0 !important;
+}
+
+/* Data/categoria no rodapé dos cards (ex: 2026-04-20 · Jurídico) */
+body.dark-mode .card-data,
+body.dark-mode .tarefa-card .card-data,
+body.dark-mode .tarefa-card small,
+body.dark-mode .tarefa-card span.card-data {
+  color: #8B9AB8 !important;
+}

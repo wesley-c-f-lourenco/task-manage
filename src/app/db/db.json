@@ -1,0 +1,173 @@
+{
+  "tarefas": [
+    {
+      "titulo": "Abrir processo jurídico",
+      "descricao": "Iniciar abertura de processo junto ao advogado",
+      "status": "concluido",
+      "categoria": "juridico",
+      "prioridade": "alta",
+      "dataVencimento": "2026-04-20",
+      "anotacao": "Contato: Dr. Carlos",
+      "destinado": "",
+      "criadoPor": "c148222",
+      "id": 1
+    },
+    {
+      "titulo": "Assinar termo de jornada",
+      "descricao": "Assinatura do termo referente ao período de abril",
+      "status": "concluido",
+      "categoria": "rh",
+      "prioridade": "alta",
+      "dataVencimento": "2026-04-20",
+      "anotacao": "Prazo improrrogável",
+      "destinado": "",
+      "criadoPor": "c148222",
+      "id": 3
+    },
+    {
+      "titulo": "Consulta psicólogo",
+      "descricao": "Sessão de acompanhamento psicológico mensal",
+      "status": "concluido",
+      "categoria": "outros",
+      "prioridade": "baixa",
+      "dataVencimento": "2026-04-22",
+      "anotacao": "08h00",
+      "destinado": "",
+      "criadoPor": "c148222",
+      "id": 4
+    },
+    {
+      "id": 5,
+      "titulo": "Relatório financeiro mensal",
+      "descricao": "Consolidar dados de abril e enviar ao gestor",
+      "status": "em-andamento",
+      "categoria": "financeiro",
+      "prioridade": "alta",
+      "dataVencimento": "2026-04-30",
+      "anotacao": "",
+      "destinado": "",
+      "criadoPor": "c148222",
+      "criadoEm": "2026-04-13T10:00:00Z"
+    },
+    {
+      "titulo": "precatorio",
+      "descricao": "finalizar rpv",
+      "status": "concluido",
+      "categoria": "administrativo",
+      "prioridade": "media",
+      "dataVencimento": "2026-04-24",
+      "anotacao": "sicod dossie digital",
+      "destinado": "c148222",
+      "criadoPor": "c148222",
+      "id": 6
+    },
+    {
+      "titulo": "editar calendario",
+      "descricao": "adicionar funçoes no sistema",
+      "status": "concluido",
+      "categoria": "ti",
+      "prioridade": "alta",
+      "dataVencimento": "2026-04-24",
+      "anotacao": "",
+      "destinado": "c148222",
+      "criadoPor": "c148222",
+      "id": 7
+    },
+    {
+      "titulo": "levar a cachorra e eu p passear",
+      "descricao": "cuida da dora",
+      "status": "concluido",
+      "categoria": "outros",
+      "prioridade": "media",
+      "dataVencimento": "2026-04-25",
+      "anotacao": "",
+      "destinado": "c148222",
+      "criadoPor": "c148222",
+      "id": 8
+    },
+    {
+      "titulo": "levar o lixo",
+      "descricao": "tirar o lixo",
+      "status": "concluido",
+      "categoria": "administrativo",
+      "prioridade": "media",
+      "dataVencimento": "2026-04-25",
+      "anotacao": "",
+      "destinado": "c148222",
+      "criadoPor": "c148222",
+      "id": 9
+    },
+    {
+      "titulo": "consertar o modo escuro",
+      "descricao": "visualização ruim",
+      "status": "concluido",
+      "categoria": "ti",
+      "prioridade": "alta",
+      "dataVencimento": "2026-04-25",
+      "anotacao": "",
+      "destinado": "c148222",
+      "criadoPor": "c148222",
+      "id": 10
+    },
+    {
+      "titulo": "diminuir o espaço de cadastrar tarefas",
+      "descricao": "diminuir bordas",
+      "status": "a-fazer",
+      "categoria": "ti",
+      "prioridade": "media",
+      "dataVencimento": "2026-04-25",
+      "anotacao": "",
+      "destinado": "",
+      "criadoPor": "c148222",
+      "id": 11
+    },
+    {
+      "titulo": "lista de tarefas 2",
+      "descricao": "deixa a barra de tarefa funcional",
+      "status": "a-fazer",
+      "categoria": "ti",
+      "prioridade": "media",
+      "dataVencimento": "2026-04-26",
+      "anotacao": "",
+      "destinado": "",
+      "criadoPor": "c148222",
+      "id": 12
+    },
+    {
+      "titulo": "letras do layout",
+      "descricao": "aumentar as letras",
+      "status": "a-fazer",
+      "categoria": "ti",
+      "prioridade": "media",
+      "dataVencimento": "2026-04-25",
+      "anotacao": "",
+      "destinado": "",
+      "criadoPor": "c148222",
+      "id": 13
+    },
+    {
+      "titulo": "fgts jeane",
+      "descricao": "liberar fgts de jeane",
+      "status": "a-fazer",
+      "categoria": "operacional",
+      "prioridade": "alta",
+      "dataVencimento": "2026-04-27",
+      "anotacao": "liberar no redecaixa",
+      "destinado": "c148222",
+      "criadoPor": "c148222",
+      "id": 14
+    },
+    {
+      "titulo": "verificar docs ",
+      "descricao": "na mesa",
+      "status": "a-fazer",
+      "categoria": "administrativo",
+      "prioridade": "media",
+      "dataVencimento": "2026-04-27",
+      "anotacao": "",
+      "destinado": "c148222",
+      "criadoPor": "c148222",
+      "id": 15
+    }
+  ]
+}
