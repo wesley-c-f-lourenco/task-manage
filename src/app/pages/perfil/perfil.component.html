@@ -6,35 +6,72 @@
       <span class="logo-sub">task manager corporativo</span>
     </div>
 
-    <div class="perfil-card">
+    <!-- LOGIN -->
+    <div class="perfil-card" *ngIf="modo() === 'login'">
       <div class="card-header">
-        <h2>Criar seu perfil</h2>
-        <p>Preencha seus dados para acessar o sistema</p>
+        <h2>Entrar no sistema</h2>
+        <p>Use sua matrícula e senha</p>
       </div>
 
-      <form [formGroup]="form" (ngSubmit)="salvar()">
+      <div class="erro-msg" *ngIf="erro()">{{ erro() }}</div>
 
-        <div class="field">
-          <label>Nome completo *</label>
-          <input formControlName="nome" placeholder="Seu nome completo" [class.input-erro]="invalido('nome')" />
-          <small class="erro" *ngIf="invalido('nome')">Nome obrigatório (mínimo 3 caracteres)</small>
-        </div>
-
-        <div class="field">
-          <label>Cargo *</label>
-          <input formControlName="cargo" placeholder="Ex: Analista de TI" [class.input-erro]="invalido('cargo')" />
-          <small class="erro" *ngIf="invalido('cargo')">Cargo obrigatório</small>
-        </div>
-
+      <form [formGroup]="formLogin" (ngSubmit)="entrar()">
         <div class="field">
           <label>Matrícula *</label>
-          <input formControlName="matricula" placeholder="Ex: 12345678" [class.input-erro]="invalido('matricula')" />
-          <small class="erro" *ngIf="invalido('matricula')">Matrícula obrigatória (mínimo 4 caracteres)</small>
+          <input formControlName="matricula" placeholder="Ex: c148222" [class.input-erro]="invalido('login','matricula')" />
+          <small class="erro" *ngIf="invalido('login','matricula')">Matrícula obrigatória</small>
         </div>
-
-        <button type="submit" class="btn-primary">Acessar o sistema →</button>
-
+        <div class="field">
+          <label>Senha *</label>
+          <input type="password" formControlName="senha" placeholder="Sua senha" [class.input-erro]="invalido('login','senha')" />
+          <small class="erro" *ngIf="invalido('login','senha')">Senha obrigatória</small>
+        </div>
+        <button type="submit" class="btn-primary">Entrar →</button>
       </form>
+
+      <div class="trocar-modo">
+        Não tem conta?
+        <button class="btn-link" (click)="trocarModo('cadastro')">Criar usuário</button>
+      </div>
+    </div>
+
+    <!-- CADASTRO -->
+    <div class="perfil-card" *ngIf="modo() === 'cadastro'">
+      <div class="card-header">
+        <h2>Criar usuário</h2>
+        <p>Preencha seus dados de acesso</p>
+      </div>
+
+      <div class="erro-msg" *ngIf="erro()">{{ erro() }}</div>
+
+      <form [formGroup]="formCadastro" (ngSubmit)="cadastrar()">
+        <div class="field">
+          <label>Nome completo *</label>
+          <input formControlName="nome" placeholder="Seu nome" [class.input-erro]="invalido('cadastro','nome')" />
+          <small class="erro" *ngIf="invalido('cadastro','nome')">Nome obrigatório</small>
+        </div>
+        <div class="field">
+          <label>Cargo *</label>
+          <input formControlName="cargo" placeholder="Ex: Analista de TI" [class.input-erro]="invalido('cadastro','cargo')" />
+          <small class="erro" *ngIf="invalido('cadastro','cargo')">Cargo obrigatório</small>
+        </div>
+        <div class="field">
+          <label>Matrícula *</label>
+          <input formControlName="matricula" placeholder="Ex: c148222" [class.input-erro]="invalido('cadastro','matricula')" />
+          <small class="erro" *ngIf="invalido('cadastro','matricula')">Matrícula obrigatória</small>
+        </div>
+        <div class="field">
+          <label>Senha *</label>
+          <input type="password" formControlName="senha" placeholder="Crie uma senha" [class.input-erro]="invalido('cadastro','senha')" />
+          <small class="erro" *ngIf="invalido('cadastro','senha')">Senha obrigatória (mín. 4 caracteres)</small>
+        </div>
+        <button type="submit" class="btn-primary">Criar e entrar →</button>
+      </form>
+
+      <div class="trocar-modo">
+        Já tem conta?
+        <button class="btn-link" (click)="trocarModo('login')">Fazer login</button>
+      </div>
     </div>
 
   </div>

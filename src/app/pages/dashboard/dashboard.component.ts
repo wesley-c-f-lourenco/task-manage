@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
     return dias;
   });
 
-  tarefasFiltradas = computed(() => {
+ tarefasFiltradas = computed(() => {
   const perfil = this.perfilService.perfil();
   const todas = this.tarefaService.filtradas();
   const hoje = new Date().toISOString().slice(0, 10);
@@ -52,16 +52,26 @@ export class DashboardComponent implements OnInit {
   const visiveis = todas.filter(t => {
     const passada = t.dataVencimento < hoje;
     const concluida = t.status === StatusTarefa.Concluido;
-    if (passada && concluida) return false;
+    if (passada) return false; // remove todas as vencidas da lista principal
     return true;
   });
 
-  if (this.modoPerfil() === 'meu') {
-    return visiveis.filter(t => t.criadoPor === perfil?.matricula || t.destinado === perfil?.matricula);
-  }
+  const filtradas = this.modoPerfil() === 'meu'
+    ? visiveis.filter(t => t.criadoPor === perfil?.matricula || t.destinado === perfil?.matricula)
+    : visiveis.filter(t => !t.destinado || t.destinado === '');
 
-  // equipe: tarefas sem destinado ou destinadas a outro
-  return visiveis.filter(t => !t.destinado || t.destinado === '');
+  return filtradas.sort((a, b) => a.dataVencimento.localeCompare(b.dataVencimento));
+});
+tarefasVencidas = computed(() => {
+  const hoje = new Date().toISOString().slice(0, 10);
+  const perfil = this.perfilService.perfil();
+  const todas = this.tarefaService.filtradas();
+
+  const base = this.modoPerfil() === 'meu'
+    ? todas.filter(t => t.criadoPor === perfil?.matricula || t.destinado === perfil?.matricula)
+    : todas.filter(t => !t.destinado || t.destinado === '');
+
+  return base.filter(t => t.dataVencimento < hoje && t.status !== StatusTarefa.Concluido);
 });
 
 todasParaCalendario = computed(() => {

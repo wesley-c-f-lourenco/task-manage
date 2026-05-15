@@ -105,38 +105,57 @@
     </div>
   </section>
 
-  <!-- CARDS HORIZONTAIS -->
-  <section class="card">
-    <div class="section-header">
-      <h3 class="section-title">Lista de tarefas <button class="btn-novo" (click)="abrirNovaTarefa()">+</button></h3>
-      <div class="filtros-row">
-        <input class="input-busca" placeholder="🔍 Buscar por título..." (input)="setBusca($any($event.target).value)" />
-        <select class="select-filtro" (change)="setStatus($any($event.target).value)">
-          <option value="todos">Todos os status</option>
-          <option *ngFor="let o of statusOpcoes" [value]="o.value">{{ o.label }}</option>
-        </select>
-        <select class="select-filtro" (change)="setCategoria($any($event.target).value)">
-          <option value="todos">Todas as categorias</option>
-          <option *ngFor="let o of categoriaOpcoes" [value]="o.value">{{ o.label }}</option>
-        </select>
-      </div>
+<!-- CARDS HORIZONTAIS -->
+<section class="card">
+  <div class="section-header">
+    <h3 class="section-title">Lista de tarefas <button class="btn-novo" (click)="abrirNovaTarefa()">+</button></h3>
+    <div class="filtros-row">
+      <input class="input-busca" placeholder="🔍 Buscar por título..." (input)="setBusca($any($event.target).value)" />
+      <select class="select-filtro" (change)="setStatus($any($event.target).value)">
+        <option value="todos">Todos os status</option>
+        <option *ngFor="let o of statusOpcoes" [value]="o.value">{{ o.label }}</option>
+      </select>
+      <select class="select-filtro" (change)="setCategoria($any($event.target).value)">
+        <option value="todos">Todas as categorias</option>
+        <option *ngFor="let o of categoriaOpcoes" [value]="o.value">{{ o.label }}</option>
+      </select>
     </div>
-    <div class="cards-scroll" *ngIf="!tarefaService.carregando(); else loading">
-      <div class="empty-state" *ngIf="tarefasFiltradas().length === 0">
-        <span>📭</span><p>Nenhuma tarefa encontrada</p>
-      </div>
-      <div class="tarefa-card" *ngFor="let t of tarefasFiltradas()"
-  [class.selecionado]="tarefaSelecionada()?.id === t.id"
-  (click)="editarTarefa(t)">
-  <div class="card-top">
-    <strong>{{ t.titulo }}</strong>
-    <span class="tag" [class]="statusClasse(t.status)">{{ statusLabel(t.status) }}</span>
   </div>
-  <small class="card-data">{{ t.dataVencimento }} · {{ categoriaLabel(t.categoria) }}</small>
-</div>
+  <div class="cards-scroll" *ngIf="!tarefaService.carregando(); else loading">
+    <div class="empty-state" *ngIf="tarefasFiltradas().length === 0">
+      <p>Nenhuma tarefa encontrada</p>
     </div>
-    <ng-template #loading><div class="loading">Carregando...</div></ng-template>
-  </section>
+    <div class="tarefa-card" *ngFor="let t of tarefasFiltradas()"
+      [class.selecionado]="tarefaSelecionada()?.id === t.id"
+      (click)="editarTarefa(t)">
+      <div class="card-top">
+        <strong>{{ t.titulo }}</strong>
+        <span class="tag" [class]="statusClasse(t.status)">{{ statusLabel(t.status) }}</span>
+      </div>
+      <small class="card-data">{{ t.dataVencimento }} · {{ categoriaLabel(t.categoria) }}</small>
+    </div>
+  </div>
+  <ng-template #loading><div class="loading">Carregando...</div></ng-template>
+
+  <!-- TAREFAS VENCIDAS -->
+  <div *ngIf="tarefasVencidas().length > 0" style="margin-top:1.25rem;border-top:1px solid var(--borda);padding-top:1rem;">
+    <h3 style="font-size:0.9rem;font-weight:600;color:#c62828;margin:0 0 0.75rem;">
+      Tarefas vencidas ({{ tarefasVencidas().length }})
+    </h3>
+    <div class="cards-scroll">
+      <div class="tarefa-card" *ngFor="let t of tarefasVencidas()"
+        style="border-color:#ef9a9a;"
+        [class.selecionado]="tarefaSelecionada()?.id === t.id"
+        (click)="editarTarefa(t)">
+        <div class="card-top">
+          <strong>{{ t.titulo }}</strong>
+          <span class="tag" [class]="statusClasse(t.status)">{{ statusLabel(t.status) }}</span>
+        </div>
+        <small class="card-data" style="color:#c62828;">{{ t.dataVencimento }} · {{ categoriaLabel(t.categoria) }}</small>
+      </div>
+    </div>
+  </div>
+</section>
 
   
 

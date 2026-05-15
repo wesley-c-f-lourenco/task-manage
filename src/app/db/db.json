@@ -1,18 +1,6 @@
 {
   "tarefas": [
     {
-      "titulo": "Abrir processo jurídico",
-      "descricao": "Iniciar abertura de processo junto ao advogado",
-      "status": "concluido",
-      "categoria": "juridico",
-      "prioridade": "alta",
-      "dataVencimento": "2026-04-20",
-      "anotacao": "Contato: Dr. Carlos",
-      "destinado": "",
-      "criadoPor": "c148222",
-      "id": 1
-    },
-    {
       "titulo": "Assinar termo de jornada",
       "descricao": "Assinatura do termo referente ao período de abril",
       "status": "concluido",
@@ -37,17 +25,16 @@
       "id": 4
     },
     {
-      "id": 5,
       "titulo": "Relatório financeiro mensal",
       "descricao": "Consolidar dados de abril e enviar ao gestor",
-      "status": "em-andamento",
+      "status": "a-fazer",
       "categoria": "financeiro",
       "prioridade": "alta",
       "dataVencimento": "2026-04-30",
       "anotacao": "",
       "destinado": "",
       "criadoPor": "c148222",
-      "criadoEm": "2026-04-13T10:00:00Z"
+      "id": 5
     },
     {
       "titulo": "precatorio",
@@ -112,7 +99,7 @@
     {
       "titulo": "diminuir o espaço de cadastrar tarefas",
       "descricao": "diminuir bordas",
-      "status": "a-fazer",
+      "status": "concluido",
       "categoria": "ti",
       "prioridade": "media",
       "dataVencimento": "2026-04-25",
@@ -124,7 +111,7 @@
     {
       "titulo": "lista de tarefas 2",
       "descricao": "deixa a barra de tarefa funcional",
-      "status": "a-fazer",
+      "status": "concluido",
       "categoria": "ti",
       "prioridade": "media",
       "dataVencimento": "2026-04-26",
@@ -136,7 +123,7 @@
     {
       "titulo": "letras do layout",
       "descricao": "aumentar as letras",
-      "status": "a-fazer",
+      "status": "concluido",
       "categoria": "ti",
       "prioridade": "media",
       "dataVencimento": "2026-04-25",
@@ -148,7 +135,7 @@
     {
       "titulo": "fgts jeane",
       "descricao": "liberar fgts de jeane",
-      "status": "a-fazer",
+      "status": "concluido",
       "categoria": "operacional",
       "prioridade": "alta",
       "dataVencimento": "2026-04-27",
@@ -160,7 +147,7 @@
     {
       "titulo": "verificar docs ",
       "descricao": "na mesa",
-      "status": "a-fazer",
+      "status": "concluido",
       "categoria": "administrativo",
       "prioridade": "media",
       "dataVencimento": "2026-04-27",
@@ -168,6 +155,78 @@
       "destinado": "c148222",
       "criadoPor": "c148222",
       "id": 15
+    },
+    {
+      "titulo": "acordo",
+      "descricao": "assinar acordo de prorr",
+      "status": "concluido",
+      "categoria": "administrativo",
+      "prioridade": "media",
+      "dataVencimento": "2026-04-29",
+      "anotacao": "",
+      "destinado": "",
+      "criadoPor": "c148222",
+      "id": 16
+    },
+    {
+      "titulo": "montar apresentaçao",
+      "descricao": "apresentação do desafio tematico",
+      "status": "em-andamento",
+      "categoria": "ti",
+      "prioridade": "alta",
+      "dataVencimento": "2026-05-03",
+      "anotacao": "",
+      "destinado": "c148222",
+      "criadoPor": "c148222",
+      "id": 17
+    },
+    {
+      "titulo": "entrevista",
+      "descricao": "seleção para frontend",
+      "status": "concluido",
+      "categoria": "ti",
+      "prioridade": "media",
+      "dataVencimento": "2026-05-04",
+      "anotacao": "",
+      "destinado": "c148222",
+      "criadoPor": "c148222",
+      "id": 18
+    },
+    {
+      "titulo": "aarrumar a casa ",
+      "descricao": "varrer cs e lavar roupa",
+      "status": "a-fazer",
+      "categoria": "administrativo",
+      "prioridade": "media",
+      "dataVencimento": "2026-05-07",
+      "anotacao": "",
+      "destinado": "c148222",
+      "criadoPor": "c148222",
+      "id": 19
+    },
+    {
+      "titulo": "dia das maes",
+      "descricao": "mae",
+      "status": "a-fazer",
+      "categoria": "administrativo",
+      "prioridade": "media",
+      "dataVencimento": "2026-05-11",
+      "anotacao": "",
+      "destinado": "c148222",
+      "criadoPor": "c148222",
+      "id": 20
+    },
+    {
+      "titulo": "entrgar curriculo",
+      "descricao": "enviar o curriculo para Tatiana",
+      "status": "a-fazer",
+      "categoria": "administrativo",
+      "prioridade": "media",
+      "dataVencimento": "2026-05-29",
+      "anotacao": "",
+      "destinado": "c148222",
+      "criadoPor": "c148222",
+      "id": 21
     }
   ]
 }

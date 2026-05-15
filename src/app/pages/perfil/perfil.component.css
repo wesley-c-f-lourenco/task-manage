@@ -69,3 +69,31 @@
   transition: background 0.2s;
 }
 .btn-primary:hover { background: #0070CC; }
+
+.erro-msg {
+  background: #ffebee;
+  color: #c62828;
+  padding: 0.6rem 0.85rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ef9a9a;
+}
+
+.trocar-modo {
+  text-align: center;
+  margin-top: 1.25rem;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  color: #0070CC;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0;
+  text-decoration: underline;
+}
