@@ -69,7 +69,3 @@ src/app/
 │   └── dashboard/
 └── db/
 └── db.json
-
-## Entrega
-Arquivo disponibilizado via SharePoint.
-Link enviado para: cecvssp05@caixa.gov.br
