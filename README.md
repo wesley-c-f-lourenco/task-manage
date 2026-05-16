@@ -1,5 +1,7 @@
 # Task Manager Corporativo — Wesley
 
+Acesse: (https://wesley-c-f-lourenco.github.io/task-manage/dashboard)
+
 ## Descrição
 Sistema de gerenciamento de tarefas corporativo desenvolvido em Angular 21.
 Permite criar, visualizar, editar e excluir tarefas com controle de status,
@@ -35,7 +37,7 @@ npm run db
 ```bash
 ng serve
 ```
-Acesse: (https://wesley-c-f-lourenco.github.io/task-manage/dashboard)
+
 
 ## Funcionalidades
 - [x] Cadastro de perfil com persistência em localStorage
