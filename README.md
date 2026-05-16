@@ -35,7 +35,7 @@ npm run db
 ```bash
 ng serve
 ```
-Acesse: http://localhost:4200
+Acesse: (https://wesley-c-f-lourenco.github.io/task-manage/dashboard)
 
 ## Funcionalidades
 - [x] Cadastro de perfil com persistência em localStorage
